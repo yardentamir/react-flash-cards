@@ -124,3 +124,11 @@ body {
 .p-20 {
   padding: 30px !important;
 }
+
+.count-complete p {
+  padding: 10px;
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 15px;
+  box-shadow: 1px 1px 8px 1px #9b9999;
+}

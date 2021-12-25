@@ -7,8 +7,8 @@ export default class Game extends React.Component {
         {
           this.props.state.dataToFilter.length > 0 && this.props.state.data.length > 0 &&
           <>
-            <div className=" ui center-text">
-              <p>Completed: {this.props.state.countRights} / {this.props.state.data.length}</p>
+            <div className=" ui center-text count-complete">
+              <p>Completed: <b>{this.props.state.countRights}</b>/{this.props.state.data.length}</p>
             </div>
             <div className="ui centered card width-standard p-20">
               <div className="content center-text">
