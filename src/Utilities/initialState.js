@@ -4,4 +4,6 @@ export const InitialState = {
   randomQuestionIndex: 0,
   showQuestionOrAnswer: "question",
   countRights: 0,
+  addQuestion: {},
+  currentEdit: {},
 };

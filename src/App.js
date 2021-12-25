@@ -5,12 +5,17 @@ import Game from "./Pages/Game";
 import AddQuestion from "./Pages/AddQuestion";
 import Api from "./Utilities/api";
 import { InitialState } from "./Utilities/initialState";
+import ShowCards from "./Pages/ShowCards";
+import EditQuestion from "./Pages/Edit";
 
 export default class App extends React.Component {
   state = InitialState;
 
-  componentDidMount = async () => {
-    console.log(InitialState);
+  componentDidMount = () => {
+    this.start();
+  };
+
+  start = async () => {
     const data = await Api.getItems();
     this.setState({
       data,
@@ -22,7 +27,6 @@ export default class App extends React.Component {
   };
 
   handelNewCardClick = () => {
-    console.log(this.state.dataToFilter);
     this.setState({
       randomQuestionIndex: Math.floor(
         Math.random() * this.state.dataToFilter.length
@@ -47,14 +51,48 @@ export default class App extends React.Component {
       randomQuestionIndex: Math.floor(Math.random() * dataToFilter.length),
       showQuestionOrAnswer: "question",
     }));
-    console.log(this.state.dataToFilter);
   };
 
-  handelWrongClick = () => {};
+  handelReshuffleClick = async () => {
+    this.setState(InitialState);
+    this.start();
+  };
+
+  handleClickEditCard = (item) => {
+    this.setState({ currentEdit: item });
+  };
+
+  handleChangeAdd = async (event) => {
+    const { name, value, id } = event.target;
+    this.setState((prevState) => ({
+      [id]: { ...prevState[id], [name]: value },
+    }));
+  };
+
+  handleSubmitAdd = async () => {
+    await Api.addItem(this.state.addQuestion);
+    this.handelReshuffleClick();
+    this.setState({ addQuestion: {} });
+  };
+
+  handleClickDelete = async (Item) => {
+    await Api.deleteItem(Item.id);
+    await this.updateData();
+  };
+
+  handleClickEdit = async (item) => {
+    await Api.editItem(item.id, this.state.currentEdit);
+    await this.updateData();
+  };
+
+  updateData = async () => {
+    const data = await Api.getItems();
+    this.setState({ data });
+  };
 
   render = () => {
     return (
-      <div className="container ui">
+      <>
         <BrowserRouter>
           <Header />
           <Routes>
@@ -63,20 +101,49 @@ export default class App extends React.Component {
               exact
               element={
                 <Game
-                  randomQuestionIndex={this.state.randomQuestionIndex}
                   state={this.state}
                   handelNewCardClick={this.handelNewCardClick}
                   handelRevealAnswerClick={this.handelRevealAnswerClick}
-                  showQuestionOrAnswer={this.state.showQuestionOrAnswer}
                   handelRightClick={this.handelRightClick}
-                  // handelWrongClick={this.handelWrongClick}
+                  handelReshuffleClick={this.handelReshuffleClick}
                 />
               }
             />
-            <Route path="/edit" exact element={<AddQuestion />} />
+            <Route
+              path="/edit"
+              exact
+              element={
+                <ShowCards
+                  state={this.state}
+                  handleClickDelete={this.handleClickDelete}
+                  handleClickEdit={this.handleClickEditCard}
+                />
+              }
+            />
+            <Route
+              path="/add"
+              exact
+              element={
+                <AddQuestion
+                  handleChangeAdd={this.handleChangeAdd}
+                  handleSubmitAdd={this.handleSubmitAdd}
+                />
+              }
+            />
+            <Route
+              path="/edit/:id"
+              exact
+              element={
+                <EditQuestion
+                  handleChangeAdd={this.handleChangeAdd}
+                  handleClickEdit={this.handleClickEdit}
+                  state={this.state}
+                />
+              }
+            />
           </Routes>
         </BrowserRouter>
-      </div>
+      </>
     );
   };
 }

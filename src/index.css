@@ -1,3 +1,25 @@
+@font-face {
+  font-family: "myFont";
+  src: url("./assets/fonts/Rubik-VariableFont_wght.ttf");
+}
+
+* {
+  font-family: "myFont" !important;
+}
+
+body {
+  background-color: #f1e9f0;
+}
+
+.button {
+  background-color: #b46389 !important;
+  color: white !important;
+  transition-duration: 0.4s !important;
+}
+.button:hover {
+  background-color: #b12667 !important;
+}
+
 .ui.width-standard {
   min-height: 200px;
 }
@@ -12,4 +34,93 @@
 
 .display-none {
   display: none;
+}
+
+.ui.modal {
+  display: block;
+}
+
+.ui.cards {
+  margin: 0;
+  justify-content: center;
+}
+
+.ui.card {
+  margin-top: 20px !important;
+  background-color: #e9cbe3;
+  border-radius: 30px;
+  box-shadow: 1px 1px 8px 1px #9b9999;
+  min-height: clamp(300px, 50vh, 500px);
+  transition: all 0.3s ease-in;
+  min-width: clamp(300px, 30vw, 600px);
+}
+
+.max-width-smaller {
+  max-width: 400px !important;
+  font-family: "myFont";
+  margin-top: 20px !important;
+}
+
+.false {
+  background-color: #2e2d2d;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.false {
+  margin-top: 10px;
+}
+
+.false > div {
+  position: relative;
+}
+
+.false div .button,
+.edit-delete-buttons .button {
+  transition-duration: 0.4s !important;
+  bottom: 0;
+}
+
+.false div .button,
+.edit-delete-buttons .button {
+  background-color: #b47272 !important;
+  color: white !important;
+}
+
+.false div .button:first-child,
+.edit-delete-buttons .button:first-child {
+  background-color: #78b47a !important;
+  color: white !important;
+}
+
+.false div .button:hover,
+.edit-delete-buttons .button:hover {
+  background-color: #af4c4c !important;
+  color: white !important;
+}
+
+.false div .button:first-child:hover,
+.edit-delete-buttons .button:first-child:hover {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.content > * {
+  padding: 5px 0 !important;
+}
+
+.ui.form {
+  background-color: white !important;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 8px 1px #9b9999;
+}
+.max-width-smaller .ui.form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.p-20 {
+  padding: 30px !important;
 }
