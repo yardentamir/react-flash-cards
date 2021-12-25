@@ -1,23 +1,21 @@
 import React from 'react';
 
-
-
 export default class Game extends React.Component {
-
-
   render = () => {
     return (
       <>
         {
           this.props.state.dataToFilter.length > 0 && this.props.state.data.length > 0 &&
-          <div className="ui container">
-            <div className="ui centered card width-standard">
+          <>
+            <div className=" ui center-text">
+              <p>Completed: {this.props.state.countRights} / {this.props.state.data.length}</p>
+            </div>
+            <div className="ui centered card width-standard p-20">
               <div className="content center-text">
-                {console.log(this.props.state.showQuestionOrAnswer)}
                 <div className="header">{this.props.state.dataToFilter[this.props.state.randomQuestionIndex][this.props.state.showQuestionOrAnswer]}</div>
               </div>
             </div>
-            <div className="ui centered center-text">
+            <div className="ui centered center-text ">
               <div>
                 <button className="ui button" onClick={this.props.handelNewCardClick}>
                   New Card
@@ -27,7 +25,7 @@ export default class Game extends React.Component {
                 </button>
               </div>
               <div className={`${this.props.state.showQuestionOrAnswer === "question" && "display-none"}`}>
-                <div>Did you Get it Right?</div>
+                <p>Did you Get it Right?</p>
                 <div>
                   <button className="ui button" onClick={() => this.props.handelRightClick(this.props.state.dataToFilter[this.props.state.randomQuestionIndex])}>
                     YES
@@ -37,24 +35,22 @@ export default class Game extends React.Component {
                   </button>
                 </div>
               </div>
-              <div>Completed</div>
-              <p>{this.props.state.countRights} / {this.props.state.data.length}</p>
             </div>
-          </div>
+          </>
         }
         {
           this.props.state.dataToFilter.length <= 0 && this.props.state.data.length > 0 &&
           <div className="ui container">
             <div className="ui centered card width-standard">
               <div className="content center-text">
-                <div className="header">Done!!!</div>
+                <p className="header">Done!!!</p>
               </div>
             </div>
             <div className="ui centered center-text">
               <div>Completed</div>
               <p>{this.props.state.countRights} / {this.props.state.data.length}</p>
               <p>You have completed all flash cards</p>
-              <button className="ui button">Reshuffle Again</button>
+              <button className="ui button" onClick={this.props.handelReshuffleClick}>Reshuffle Again</button>
             </div>
           </div>
         }
